@@ -7,10 +7,3 @@ router.post('/register', usersController.register);
 router.get('/', usersController.index);
 
 module.exports = router;
-
-
-
-router.get('/', function(req, res, next) {
-
-  res.send('respond with a resource');
-});
