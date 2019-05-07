@@ -7,7 +7,7 @@ var app = require('../../app.js');
 var clear = require('../specHelper')
 
 test.use(bodyParser.json())
-test.use(bodyParser.urlencoded({ extended: false }))
+test.use(bodyParser.urlencoded({ extended: true }))
 
 describe('api', () => {
   beforeAll(() => {
@@ -18,12 +18,12 @@ describe('api', () => {
 describe('Users Endpoints', () => {
   test('POST request for new user', () => {
     const body = {
-                  "email": "user@email.com",
-                  "password": "test",
-                  "password_confirmation": "test"
-                  }
+                  email: "user@email.com",
+                  password: "test",
+                  password_confirmation: "test"
+                }
     return request(app).post("/api/v1/users/register")
-      .send(JSON.stringify(body))
+      .set(JSON.stringify(body))
       .then(response => {
         expect(response.statusCode).toBe(200)
         expect(typeof response.body.api_key).toBe("string")
