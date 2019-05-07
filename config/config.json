@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "prbalas",
+    "username": "",
     "password": null,
     "database": "qs_database_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "prbalas",
+    "username": "",
     "password": null,
     "database": "qs_database_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "prbalas",
+    "username": "",
     "password": null,
     "database": "qs_database_production",
     "host": "127.0.0.1",
