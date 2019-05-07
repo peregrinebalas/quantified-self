@@ -20,13 +20,23 @@ const register = (req, res) => {
 
   } else {
     res.setHeader("Content-Type", "application/json");
-    res.status(401).send(JSON.stringify("This didn't work"));
+    res.status(401).send(JSON.stringify("Invalid credentials."));
   };
 }
 
-const index = (request, response) => {
+const login = (req, res) => {
+  User.findOne({ where: { email: req.body.email } })
+  .then(user => {
+    if (req.body.password === user.password) {
+      res.setHeader("Content-Type", "application/json");
+      res.status(201).send(JSON.stringify(user.api_key))
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(401).send(JSON.stringify("Invalid credentials."));
+    };
+  });
 }
 
 module.exports = {
-  index, register
+  register, login
 }
