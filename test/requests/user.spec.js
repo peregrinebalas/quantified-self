@@ -7,7 +7,7 @@ var app = require('../../app.js');
 var clear = require('../specHelper')
 
 test.use(bodyParser.json())
-test.use(bodyParser.urlencoded({ extended: false }))
+test.use(bodyParser.urlencoded({ extended: true }))
 
 describe('api', () => {
   beforeAll(() => {
