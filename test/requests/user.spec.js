@@ -21,10 +21,8 @@ describe('Users Endpoints', () => {
                   email: "user@email.com",
                   password: "test",
                   password_confirmation: "test"
-                }
-    return request(app).post("/api/v1/users/register")
-      .set(JSON.stringify(body))
-      .then(response => {
+                  }
+    return request(app).post("/api/v1/users/register").send(body).then(response => {
         expect(response.statusCode).toBe(201)
         expect(typeof response.body.api_key).toBe("string")
       });
