@@ -8,7 +8,6 @@ const add = (req, res) => {
     calories: req.body.calories
   })
   .then(food => {
-    eval(pry.it)
     res.setHeader("Content-Type", "application/json");
     res.status(201).send(JSON.stringify(food));
   })
