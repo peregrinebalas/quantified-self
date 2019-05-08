@@ -47,5 +47,20 @@ describe('api', () => {
         expect(response.body.calories).toBe(200)
       });
     });
+
+    it('PATCH request for food', () => {
+      const body = {
+        id: 1,
+        food_name: "pizza",
+        calories: 400
+      }
+      return request(app)
+              .put("/api/v1/foods/1")
+              .send(body)
+              .then(response => {
+        expect(response.statusCode).toBe(200),
+        expect(response.body.calories).toBe(400)
+      });
+    });
   });
 });
