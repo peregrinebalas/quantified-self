@@ -3,5 +3,6 @@ var router = express.Router();
 var mealsController = require('../controllers/mealsController')
 
 router.post('/', mealsController.create);
+router.get('/:id', mealsController.show);
 
 module.exports = router;

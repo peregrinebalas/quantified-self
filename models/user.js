@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     api_key: DataTypes.STRING
   }, {});
-  User.associate = function(models) {
-    User.hasMany(models.MealFoods);
+  User.associate = function(m) {
+    User.belongsToMany(m.Food, {through: m.MealFood, foreignKey: m.UserId});
+    User.belongsToMany(m.Meal, {through: m.MealFood, foreignKey: m.UserId});
   };
   return User;
 };
