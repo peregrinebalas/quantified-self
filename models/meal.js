@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE
   }, {});
   Meal.associate = function(models) {
-    // associations can be defined here
+    Meal.hasMany(models.MealFoods);
   };
   return Meal;
 };

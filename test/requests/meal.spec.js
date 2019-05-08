@@ -19,7 +19,7 @@ describe('Users Endpoints', () => {
   test('POST request for new meal', () => {
     const body = {
                     api_key: "klasjfd3oiu05704309284fyouysgy",
-                    meal_name: "Breakfast",
+                    name: "Breakfast",
                     date: "1/5/19"
                   }
     return request(app)
