@@ -11,22 +11,25 @@ test.use(bodyParser.urlencoded({ extended: true }))
 
 describe('api', () => {
   beforeAll(() => {
+    shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:create')
+    shell.exec('npx sequelize db:migrate')
   });
-});
 
-describe('Users Endpoints', () => {
-  test('POST request for new user', () => {
-    const body = {
-                  email: "user@email.com",
-                  password: "test",
-                  password_confirmation: "test"
-                }
-    return request(app).post("/api/v1/users/register")
-      .set(JSON.stringify(body))
-      .then(response => {
-        expect(response.statusCode).toBe(200)
+  describe('Users Endpoints', () => {
+    it('POST request for new user', () => {
+      const body = {
+        email: "user@email.com",
+        password: "test",
+        password_confirmation: "test"
+      }
+      return request(app)
+              .post("/api/v1/users/register")
+              .send(body)
+              .then(response => {
+        expect(response.statusCode).toBe(201),
         expect(typeof response.body.api_key).toBe("string")
       });
+    });
   });
 });
