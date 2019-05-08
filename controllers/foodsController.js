@@ -3,8 +3,11 @@ const hat = require('hat')
 const pry = require('pryjs')
 
 const add = (req, res) => {
+  let food = req.body.food_name
+      food = food.toLowerCase()
+      food = food[0].toUpperCase() + food.substring(1)
   Food.create({
-    name: req.body.name,
+    name: food,
     calories: req.body.calories
   })
   .then(food => {
