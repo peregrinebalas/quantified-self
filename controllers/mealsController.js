@@ -5,7 +5,7 @@ const pry = require('pryjs')
 const create = (req, res) => {
   User.findOne({ where: { api_key: req.body.api_key } })
     .then(user => {
-      let meal = req.body.meal_name
+      let meal = req.body.meal
       meal = meal.toLowerCase()
       meal = meal[0].toUpperCase() + meal.substring(1)
       Meal.findOrCreate({ where: {

@@ -1,5 +1,4 @@
 const Food = require('../models').Food
-const hat = require('hat')
 const pry = require('pryjs')
 
 const add = (req, res) => {

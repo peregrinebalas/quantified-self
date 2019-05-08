@@ -19,15 +19,15 @@ describe('Users Endpoints', () => {
   test('POST request for new meal', () => {
     const body = {
                     api_key: "klasjfd3oiu05704309284fyouysgy",
-                    name: "Breakfast",
-                    date: "1/5/19"
+                    meal_name: "Breakfast",
+                    date: "1/5/19",
+                    food: "Chicken"
                   }
     return request(app)
-    .post("/api/v1/meals")
+    .post("/api/v1/meal-foods")
     .send(body)
     .then(response => {
       expect(response.statusCode).toBe(201)
-      expect(typeof response.body.api_key).toBe("string")
     });
   });
 });
