@@ -5,5 +5,6 @@ var pry = 'pryjs'
 
 router.post('/', foodsController.add);
 router.get('/', foodsController.index);
+router.get('/:id', foodsController.show);
 
 module.exports = router;

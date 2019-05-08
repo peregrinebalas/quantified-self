@@ -15,7 +15,7 @@ describe('api', () => {
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
   });
-  
+
   describe('Users Endpoints', () => {
     it('POST request for new user', () => {
       const body = {
@@ -28,17 +28,19 @@ describe('api', () => {
               .send(body)
               .then(response => {
         expect(response.statusCode).toBe(201),
+        expect(typeof response.body.api_key).toBe("string")
+      });
+    });
 
     it('POST request for user login', () => {
       const body = {
-                    "email": "user@email.com",
-                    "password": "test",
-                   }
-      return request(app)
-               .post("/api/v1/users")
-               .send(JSON.stringify(body))
-               .then(response => {
-        expect(response.statusCode).toBe(200)
+        email: "user@email.com",
+        password: "test",
+      }
+      return request(app).post("/api/v1/users")
+      .send(body)
+      .then(response => {
+        expect(response.statusCode).toBe(201),
         expect(typeof response.body.api_key).toBe("string")
       });
     });

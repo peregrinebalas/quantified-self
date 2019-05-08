@@ -30,6 +30,21 @@ const index = async (req, res) => {
   }
 }
 
+const show = async (req, res) => {
+  try {
+    const food = await Food.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify(food));
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send({error});
+  }
+}
+
 module.exports = {
-  index, add
+  index, show, add
 }

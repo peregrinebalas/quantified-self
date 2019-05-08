@@ -29,7 +29,7 @@ const login = (req, res) => {
   .then(user => {
     if (req.body.password === user.password) {
       res.setHeader("Content-Type", "application/json");
-      res.status(201).send(JSON.stringify(user.api_key))
+      res.status(201).send(JSON.stringify({"api_key": `${user.api_key}`}))
     } else {
       res.setHeader("Content-Type", "application/json");
       res.status(401).send(JSON.stringify("Invalid credentials."));
