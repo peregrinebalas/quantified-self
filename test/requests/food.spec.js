@@ -10,7 +10,7 @@ test.use(bodyParser.json())
 test.use(bodyParser.urlencoded({ extended: true }))
 
 describe('api', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
@@ -23,10 +23,28 @@ describe('api', () => {
         calories: 200
       }
       return request(app)
-              .post("/api/v1/foods/")
+              .post("/api/v1/foods")
               .send(body)
               .then(response => {
         expect(response.statusCode).toBe(201)
+      });
+    });
+
+    it('GET request for food index', () => {
+      return request(app)
+              .get("/api/v1/foods")
+              .then(response => {
+        expect(response.statusCode).toBe(200),
+        expect(response.body[0].calories).toBe(200)
+      });
+    });
+
+    it('GET request for food show', () => {
+      return request(app)
+              .get("/api/v1/foods/1")
+              .then(response => {
+        expect(response.statusCode).toBe(200),
+        expect(response.body.calories).toBe(200)
       });
     });
   });
