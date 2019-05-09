@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
