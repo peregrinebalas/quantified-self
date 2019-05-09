@@ -44,7 +44,11 @@ const login = (req, res) => {
         res.status(401).send(JSON.stringify("Invalid credentials."));
       };
     })
-  });
+  })
+  .catch(error => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(401).send(JSON.stringify("Invalid credentials."));
+  })
 }
 
 module.exports = {
