@@ -24,7 +24,7 @@ const findMeal = (user, meal, req, res) => {
     }
   })
   .then(meal => {
-    const food = sanitizeEntry(req.body.food)
+    const food = sanitizeEntry(req.body.food_name)
     return findFood(user, meal, food, res)
   })
   .catch(error => {
