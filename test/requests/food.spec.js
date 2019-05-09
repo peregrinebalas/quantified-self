@@ -51,7 +51,7 @@ describe('api', () => {
     it('PATCH request for food', () => {
       const body = {
         id: 1,
-        food_name: "pizza",
+        food_name: "Pizza",
         calories: 400
       }
       return request(app)
@@ -60,6 +60,15 @@ describe('api', () => {
               .then(response => {
         expect(response.statusCode).toBe(200),
         expect(response.body.calories).toBe(400)
+      });
+    });
+
+    it('DELETE request for food', () => {
+      return request(app)
+              .delete("/api/v1/foods/1")
+              .then(response => {
+        expect(response.statusCode).toBe(200),
+        expect(response.body.message).toBe("Pizza has been deleted.")
       });
     });
   });
