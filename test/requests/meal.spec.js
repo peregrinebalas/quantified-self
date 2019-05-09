@@ -27,10 +27,10 @@ describe('api', () => {
         api_key: "1234"
       }
       return request(app)
-              .post("/api/v1/meals/1")
+              .get("/api/v1/meals/2")
               .send(body)
               .then(response => {
-        expect(response.body).toBe(201)
+        expect(response).toBe(201)
       });
     });
 
@@ -39,10 +39,10 @@ describe('api', () => {
         api_key: "1234"
       }
       return request(app)
-              .post("/api/v1/meals/")
+              .get("/api/v1/meals/")
               .send(body)
               .then(response => {
-        expect(response.body).toBe(201)
+        expect(response).toBe(201)
         expect(response.body.meals.length).toBe(1)
         expect(response.body.meals[0].foods.length).toBe(3)
       });
@@ -50,17 +50,16 @@ describe('api', () => {
 
     it('POST request for new meal', () => {
       const body = {
-        api_key: "klasjfd3oiu05704309284fyouysgy",
+        api_key: "1234",
         meal: "Breakfast",
         date: "1/5/19"
       }
       return request(app)
-      .post("/api/v1/meals/")
-      .send(body)
-      .then(response => {
-        expect(response.statusCode).toBe(201)
-        expect(response.body.id).toBe("3")
-        expect(response.body.message).toBe("Breakfast has been added to meals for 1/5/19")
+              .post("/api/v1/meals/")
+              .send(body)
+              .then(response => {
+        expect(response.statusCode).toBe(201),
+        expect(response.body.message).toBe("Breakfast has been added to meals for 1/5/2019")
       });
     });
   });

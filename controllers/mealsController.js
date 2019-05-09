@@ -9,9 +9,10 @@ const create = (req, res) => {
     .then(user => {
       const meal = sanitizeEntry(req.body.meal)
       return createMeal(meal, req.body.date, res)
+    })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
-      res.status(401).send(JSON.stringify("Invalid credentials")) })
+      res.status(401).send(JSON.stringify({error: "Invalid credentials"}))
     });
 }
 
@@ -22,10 +23,15 @@ const createMeal = (meal, date, res) => {
   } })
   .then(meal => {
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(JSON.stringify({ "id": `${meal[0].id}`, "Message": `${meal[0].meal_name} has been added to meals for ${meal[0].date.toLocaleDateString('en-US')}` } )) })
+    res.status(201).send(JSON.stringify({
+      id: `${meal[0].id}`,
+      message: `${meal[0].meal_name} has been added to meals for ${meal[0].date.toLocaleDateString('en-US')}`
+    }));
+  })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify("Could not store meal.")) })
+    res.status(400).send(JSON.stringify({error: "Could not store meal."}));
+  });
 }
 
 const sanitizeEntry = (userEntry) => {
@@ -42,10 +48,14 @@ const show = async (req, res) => {
     const mealFood = await findMealFood(req.params.id, user.id);
     const foods = await findFoods(mealFood);
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(JSON.stringify({ id: `${req.params.id}`, Name: `${meal.meal_name}`, Foods: foods }) )
+    res.status(201).send(JSON.stringify({
+      id: `${req.params.id}`,
+      name: `${meal.meal_name}`,
+      foods: foods
+    }));
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify("Could not store meal."))
+    res.status(400).send(JSON.stringify("Could not find meal."))
   }
 }
 
@@ -55,7 +65,10 @@ const index = async (req, res) => {
     const meals = await findUserMeals(user.id);
     const mealsResults = await findAllMealFoods(meals, user.id)
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(JSON.stringify({ user_id: `${user.id}`, meals: mealsResults }) )
+    res.status(201).send(JSON.stringify({
+      user_id: `${user.id}`,
+      meals: mealsResults
+    }));
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify("Could not fetch meals."))

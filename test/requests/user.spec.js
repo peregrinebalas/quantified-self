@@ -37,9 +37,10 @@ describe('api', () => {
         email: "user@email.com",
         password: "test",
       }
-      return request(app).post("/api/v1/users")
-      .send(body)
-      .then(response => {
+      return request(app)
+              .post("/api/v1/users")
+              .send(body)
+              .then(response => {
         expect(response.statusCode).toBe(201),
         expect(typeof response.body.api_key).toBe("string")
       });
