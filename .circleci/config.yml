@@ -7,7 +7,6 @@ jobs:
       - image: circleci/postgres:alpine
         environment:
           POSTGRES_USER: quantified-self
-          POSTGRES_DB: qs_database_test
 
     steps:
       - checkout
