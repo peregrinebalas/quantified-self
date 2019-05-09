@@ -34,13 +34,16 @@ const register = (req, res) => {
 const login = (req, res) => {
   User.findOne({ where: { email: req.body.email } })
   .then(user => {
-    if (req.body.password === user.password) {
-      res.setHeader("Content-Type", "application/json");
-      res.status(201).send(JSON.stringify(user.api_key))
-    } else {
-      res.setHeader("Content-Type", "application/json");
-      res.status(401).send(JSON.stringify("Invalid credentials."));
-    };
+    const password = req.body.password
+    bcrypt.compare(password, user.password, function(err, match) {
+      if (match) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(201).send(JSON.stringify(user.api_key))
+      } else {
+        res.setHeader("Content-Type", "application/json");
+        res.status(401).send(JSON.stringify("Invalid credentials."));
+      };
+    })
   });
 }
 
