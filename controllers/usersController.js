@@ -5,22 +5,26 @@ const pry = require('pryjs')
 const saltRounds = 10;
 
 const register = (req, res) => {
-  if (req.body.email && req.body.password && req.body.password === req.body.password_confirmation) {
-    eval(pry.it)
-    User.create({
-      email: req.body.email,
-      password: req.body.password,
-      api_key: hat()
-    })
-    .then(user => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(201).send(JSON.stringify({"api_key": `${user.api_key}`}));
-    })
-    .catch(error => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(500).send("User not created");
-    });
+  const email = req.body.email
+  const password = req.body.password
+  const confirmation = req.body.password_confirmation
 
+  if (email && password && password === confirmation) {
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+      User.create({
+        email: email,
+        password: hash,
+        api_key: hat()
+      })
+      .then(user => {
+        res.setHeader("Content-Type", "application/json");
+        res.status(201).send(JSON.stringify({"api_key": `${user.api_key}`}));
+      })
+      .catch(error => {
+        res.setHeader("Content-Type", "application/json");
+        res.status(500).send("User not created");
+      });
+    })
   } else {
     res.setHeader("Content-Type", "application/json");
     res.status(401).send(JSON.stringify("Invalid credentials."));
