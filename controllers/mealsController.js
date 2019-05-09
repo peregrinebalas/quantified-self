@@ -7,7 +7,7 @@ const pry = require('pryjs')
 const create = (req, res) => {
   findUser(req.body.api_key)
     .then(user => {
-      const meal = sanitizeEntry(req.body.meal)
+      const meal = sanitizeEntry(req.body.meal_name)
       return createMeal(meal, req.body.date, res)
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
