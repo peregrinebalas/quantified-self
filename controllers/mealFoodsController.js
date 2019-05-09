@@ -7,7 +7,7 @@ const pry = require('pryjs')
 const create = (req, res) => {
   User.findOne({ where: { api_key: req.body.api_key } })
     .then(user => {
-      const meal = sanitizeEntry(req.body.meal)
+      const meal = sanitizeEntry(req.body.meal_name)
       return findMeal(user, meal, req, res)
     })
     .catch(error => {
@@ -28,6 +28,7 @@ const findMeal = (user, meal, req, res) => {
     return findFood(user, meal, food, res)
   })
   .catch(error => {
+    console.log(`meal: ${meal}, user: ${user}, food: ${food}`)
     res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify("Meal not found."))
   })
