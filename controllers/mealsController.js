@@ -55,7 +55,7 @@ const index = async (req, res) => {
     const meals = await findUserMeals(user.id);
     const mealsResults = await findAllMealFoods(meals, user.id)
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(JSON.stringify({ user_id: `${user.id}`, Meals: mealsResults }) )
+    res.status(201).send(JSON.stringify({ user_id: `${user.id}`, meals: mealsResults }) )
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify("Could not fetch meals."))
@@ -79,7 +79,7 @@ function removeDuplicates(meals) {
   const map = new Map();
   for (const item of meals) {
     if(!map.has(item.id)){
-        map.set(item.id, true); 
+        map.set(item.id, true);
         result.push({
             id: item.id,
             name: item.meal_name,

@@ -43,6 +43,8 @@ describe('api', () => {
               .send(body)
               .then(response => {
         expect(response.body).toBe(201)
+        expect(response.body.meals.length).toBe(1)
+        expect(response.body.meals[0].foods.length).toBe(3)
       });
     });
 
