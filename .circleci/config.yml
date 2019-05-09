@@ -25,7 +25,7 @@ jobs:
       - run:
           name: test
           command: npx nyc jest --passWithNoTests --forceExit
-       - run:
+      - run:
           name: code-coverage
           command: './node_modules/.bin/nyc report --reporter=text-lcov'
       - store_artifacts:
