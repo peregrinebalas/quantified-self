@@ -1,9 +1,11 @@
 const User = require('../models').User
+const bcrypt = require('bcrypt');
 const hat = require('hat')
 const pry = require('pryjs')
+const saltRounds = 10;
 
 const register = (req, res) => {
-  if (req.body.password && req.body.password === req.body.password_confirmation) {
+  if (req.body.email && req.body.password && req.body.password === req.body.password_confirmation) {
     eval(pry.it)
     User.create({
       email: req.body.email,
