@@ -12,7 +12,7 @@ const create = (req, res) => {
     })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
-      res.status(401).send(JSON.stringify("Invalid credentials."))
+      res.status(401).send(JSON.stringify({error: "Invalid credentials."}))
     })
 }
 
@@ -30,7 +30,7 @@ const findMeal = (user, meal, req, res) => {
   .catch(error => {
     console.log(`meal: ${meal}, user: ${user}, food: ${food}`)
     res.setHeader("Content-Type", "application/json");
-    res.status(404).send(JSON.stringify("Meal not found."))
+    res.status(404).send(JSON.stringify({error: "Meal not found."}))
   })
 }
 
@@ -43,7 +43,7 @@ const findFood = (user, meal, food, res) => {
   })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
-    res.status(404).send(JSON.stringify("Food not found."))
+    res.status(404).send(JSON.stringify({error: "Food not found."}))
   })
 }
 
@@ -59,7 +59,7 @@ const createMealFood = (user, meal, food, res) => {
   })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify("Could not complete request."))
+    res.status(400).send(JSON.stringify({error: "Could not complete request."}))
   })
 }
 

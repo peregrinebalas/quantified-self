@@ -30,14 +30,14 @@ module.exports = {
         {
           id: 1,
           meal_name: 'Breakfast',
-          date: 5/8/19,
+          date: '5/8/19',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           id: 2,
           meal_name: 'Lunch',
-          date: 5/8/19,
+          date: '5/8/19',
           createdAt: new Date(),
           updatedAt: new Date()
         }
