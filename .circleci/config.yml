@@ -6,7 +6,7 @@ jobs:
       - image: circleci/node:lts
       - image: circleci/postgres:alpine
         environment:
-          POSTGRES_USER: quantified-self
+          POSTGRES_USER: postgres
 
     steps:
       - checkout
