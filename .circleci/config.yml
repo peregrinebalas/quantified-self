@@ -1,19 +1,12 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/quantified-self
     docker:
-      - image: circleci/node:11.14.0
-        enviroment:
-          PGHOST: 127.0.0.1
-          PGUSER: quantified-self
-          NODE_ENV: test
-      - image: circleci/postgres:11.2
+      - image: circleci/node:lts
+      - image: circleci/postgres:alpine
         environment:
           POSTGRES_USER: quantified-self
-          POSTGRES_DB: qs_database_test
-          POSTGRES_PASSWORD: ''
-
-    working_directory: ~/
 
     steps:
       - checkout
@@ -28,10 +21,10 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
-            - node_modules
+            - ./node_modules
       - run:
           name: test
-          command: npm test
+          command: npx nyc jest --passWithNoTests --forceExit
        - run:
           name: code-coverage
           command: './node_modules/.bin/nyc report --reporter=text-lcov'
