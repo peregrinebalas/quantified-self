@@ -59,6 +59,18 @@ const update = async (req, res) => {
   }
 }
 
+const destroy = async (req, res) => {
+  try {
+    let food = await Food.findOne({where: {id: req.params.id}});
+    await food.destroy();
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify({message: `${food.name} has been deleted.`}));
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send({error});
+  }
+}
+
 module.exports = {
-  index, show, add, update
+  index, show, add, update, destroy
 }
