@@ -69,6 +69,18 @@ const sanitizeEntry = (userEntry) => {
   return entry
 }
 
+const destroy = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { api_key: req.body.api_key } })
+    const remove = await MealFood.destroy({ where: { id: req.params.id } })
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify("Record has been deleted."))
+  } catch (error) {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify("Record could not be deleted."))
+  }
+}
+
 module.exports = {
-  create
+  create,destroy
 }
