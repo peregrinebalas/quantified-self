@@ -1,7 +1,7 @@
 const Meal = require('../models').Meal
 const User = require('../models').User
 const Food = require('../models').Food
-const MealFoods = require('../models').MealFoods
+const MealFood = require('../models').MealFood
 const pry = require('pryjs')
 
 const create = (req, res) => {
@@ -47,7 +47,7 @@ const findFood = (user, meal, food, res) => {
 }
 
 const createMealFood = (user, meal, food, res) => {
-  MealFoods.create({
+  MealFood.create({
     MealId: meal[0].id,
     FoodId: food.id,
     UserId: user.id
