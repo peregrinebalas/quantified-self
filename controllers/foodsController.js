@@ -45,6 +45,20 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    let food = await Food.findOne({where: {id: req.params.id}})
+    food.name = req.body.food_name
+    food.calories = req.body.calories
+    food.save({fields: ['name', 'calories']})
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify(food));
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send({error});
+  }
+}
+
 module.exports = {
-  index, show, add
+  index, show, add, update
 }
