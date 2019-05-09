@@ -55,7 +55,7 @@ const show = async (req, res) => {
     }));
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify("Could not find meal."))
+    res.status(400).send(JSON.stringify({error: "Could not find meal."}))
   }
 }
 
@@ -71,7 +71,7 @@ const index = async (req, res) => {
     }));
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify("Could not fetch meals."))
+    res.status(400).send(JSON.stringify({error: "Could not fetch meals."}))
   }
 }
 
