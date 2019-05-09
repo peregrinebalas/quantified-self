@@ -27,10 +27,24 @@ describe('api', () => {
         api_key: "1234"
       }
       return request(app)
+              .post("/api/v1/meals/1")
+              .send(body)
+              .then(response => {
+        expect(response.body).toBe(201)
+      });
+    });
+
+    it('GET request for all meals/index', () => {
+      const body = {
+        api_key: "1234"
+      }
+      return request(app)
               .post("/api/v1/meals/")
               .send(body)
               .then(response => {
         expect(response.body).toBe(201)
+        expect(response.body.meals.length).toBe(1)
+        expect(response.body.meals[0].foods.length).toBe(3)
       });
     });
 
