@@ -1,18 +1,13 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/quantified-self
     docker:
       - image: circleci/node:lts
-        enviroment:
-          PGHOST: 127.0.0.1
-          PGUSER: quantified-self
-          NODE_ENV: test
       - image: circleci/postgres:alpine
         environment:
           POSTGRES_USER: quantified-self
           POSTGRES_DB: qs_database_test
-
-    working_directory: ~/quantified-self
 
     steps:
       - checkout
