@@ -7,7 +7,7 @@ const pry = require('pryjs')
 const create = (req, res) => {
   User.findOne({ where: { api_key: req.body.api_key } })
     .then(user => {
-      const meal = sanitizeEntry(req.body.meal)
+      const meal = sanitizeEntry(req.body.meal_name)
       return findMeal(user, meal, req, res)
     })
     .catch(error => {
@@ -24,10 +24,11 @@ const findMeal = (user, meal, req, res) => {
     }
   })
   .then(meal => {
-    const food = sanitizeEntry(req.body.food)
+    const food = sanitizeEntry(req.body.food_name)
     return findFood(user, meal, food, res)
   })
   .catch(error => {
+    console.log(`meal: ${meal}, user: ${user}, food: ${food}`)
     res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify({error: "Meal not found."}))
   })
@@ -69,6 +70,18 @@ const sanitizeEntry = (userEntry) => {
   return entry
 }
 
+const destroy = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { api_key: req.body.api_key } })
+    const remove = await MealFood.destroy({ where: { id: req.params.id } })
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify("Record has been deleted."))
+  } catch (error) {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify("Record could not be deleted."))
+  }
+}
+
 module.exports = {
-  create
+  create,destroy
 }
