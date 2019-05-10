@@ -14,13 +14,13 @@ test.use(bodyParser.json())
 test.use(bodyParser.urlencoded({ extended: true }))
 
 describe('api spec', () => {
-  describe('api', () => {
-    beforeAll(() => {
-      shell.exec('npx sequelize db:drop')
-      shell.exec('npx sequelize db:create')
-      shell.exec('npx sequelize db:migrate')
-    });
+  beforeAll(() => {
+    shell.exec('npx sequelize db:drop')
+    shell.exec('npx sequelize db:create')
+    shell.exec('npx sequelize db:migrate')
+  });
 
+  describe('api', () => {
     describe('Users Endpoints', () => {
       it('POST request for new user', () => {
         const body = {
@@ -54,11 +54,11 @@ describe('api spec', () => {
   });
 
   describe('api', () => {
-    beforeAll(() => {
-      shell.exec('npx sequelize db:drop')
-      shell.exec('npx sequelize db:create')
-      shell.exec('npx sequelize db:migrate')
-    });
+    // beforeAll(() => {
+    //   shell.exec('npx sequelize db:drop')
+    //   shell.exec('npx sequelize db:create')
+    //   shell.exec('npx sequelize db:migrate')
+    // });
 
     describe('Foods Endpoints', () => {
       it('POST request for new food', () => {
@@ -110,12 +110,12 @@ describe('api spec', () => {
   });
 
   describe('api', () => {
-    beforeEach(() => {
-      shell.exec('npx sequelize db:drop')
-      shell.exec('npx sequelize db:create')
-      shell.exec('npx sequelize db:migrate')
-      shell.exec('npx sequelize db:seed:all')
-    });
+    // beforeEach(() => {
+    //   shell.exec('npx sequelize db:drop')
+    //   shell.exec('npx sequelize db:create')
+    //   shell.exec('npx sequelize db:migrate')
+    //   shell.exec('npx sequelize db:seed:all')
+    // });
     describe('MealFoods Endpoints', () => {
       it('POST request for new meal', () => {
         const body = {
@@ -135,12 +135,12 @@ describe('api spec', () => {
   });
 
   describe('api', () => {
-    beforeAll(() => {
-      shell.exec('npx sequelize db:drop')
-      shell.exec('npx sequelize db:create')
-      shell.exec('npx sequelize db:migrate')
-      shell.exec('npx sequelize db:seed:all')
-    });
+    // beforeAll(() => {
+    //   shell.exec('npx sequelize db:drop')
+    //   shell.exec('npx sequelize db:create')
+    //   shell.exec('npx sequelize db:migrate')
+    //   shell.exec('npx sequelize db:seed:all')
+    // });
 
     describe('Meals Endpoints', () => {
       it('GET request for meal', () => {
