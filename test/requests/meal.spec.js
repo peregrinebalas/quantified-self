@@ -12,7 +12,7 @@
 //
 //   it('GET request for meal', () => {
 //     const body = {
-//       api_key: "2e1fd81e5da8c68a24a9e49e0a601b2f"
+//       api_key: "1234"
 //     }
 //     return request(app)
 //             .get("/api/v1/meals/1")
@@ -24,7 +24,7 @@
 //
 //   it('GET request for all meals/index', () => {
 //     const body = {
-//       api_key: "2e1fd81e5da8c68a24a9e49e0a601b2f"
+//       api_key: "1234"
 //     }
 //     return request(app)
 //             .get("/api/v1/meals/")
@@ -38,7 +38,7 @@
 //
 //   it('POST request for new meal', () => {
 //     const body = {
-//       api_key: "2e1fd81e5da8c68a24a9e49e0a601b2f",
+//       api_key: "1234",
 //       meal_name: "Breakfast",
 //       date: "1/5/19"
 //     }

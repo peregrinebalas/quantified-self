@@ -6,10 +6,8 @@
 //   shell.exec('npx sequelize db:drop');
 //   shell.exec('npx sequelize db:create');
 //   shell.exec('npx sequelize db:migrate');
-//   shell.exec('npx sequelize db:seed:all');
 //
 //   it('POST request for new food', () => {
-//
 //     const body = {
 //       food_name: "pizza",
 //       calories: 200

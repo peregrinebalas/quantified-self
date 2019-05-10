@@ -110,7 +110,7 @@ module.exports = {
     return Promise.all([
       queryInterface.bulkDelete('MealFoods', null, {}),
       queryInterface.bulkDelete('Food', null, {}),
-      queryInterface.bulkDelete('Meals', null, {})
+      queryInterface.bulkDelete('Meals', null, {}),
       queryInterface.bulkDelete('Users', null, {})
     ])
   }
