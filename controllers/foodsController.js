@@ -1,22 +1,25 @@
+const fetch = require('node-fetch')
 const Food = require('../models').Food
 const pry = require('pryjs')
 
-const add = (req, res) => {
-  let food = req.body.food_name
-      food = food.toLowerCase()
-      food = food[0].toUpperCase() + food.substring(1)
-  Food.create({
-    name: food,
-    calories: req.body.calories
-  })
-  .then(food => {
+const add = async (req, res) => {
+  try {
+    eval(pry.it)
+    let food = sanitizeEntry(req.query.food_name)
+    food = await Food.create({
+      name: food,
+      calories: req.query.calories
+    });
+    const key = process.env.RECIPE_KEY
+
+    const response = await fetch(`http://localhost:3001/api/v1/recipes?ingredient=${food.name}&key=${key}`, {method: 'POST'});
+
     res.setHeader("Content-Type", "application/json");
     res.status(201).send(JSON.stringify(food));
-  })
-  .catch(error => {
+  } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send({error});
-  });
+  }
 }
 
 const index = async (req, res) => {
@@ -69,6 +72,13 @@ const destroy = async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.status(404).send({error});
   }
+}
+
+const sanitizeEntry = (userEntry) => {
+  let entry = userEntry
+  entry = entry.toLowerCase()
+  entry = entry[0].toUpperCase() + entry.substring(1)
+  return entry
 }
 
 module.exports = {
