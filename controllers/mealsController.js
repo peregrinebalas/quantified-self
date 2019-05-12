@@ -5,10 +5,10 @@ const MealFood = require('../models').MealFood
 const pry = require('pryjs');
 
 const create = (req, res) => {
-  findUser(req.body.api_key)
+  findUser(req.query.api_key)
     .then(user => {
-      const meal = sanitizeEntry(req.body.meal_name);
-      return createMeal(meal, req.body.date, res);
+      const meal = sanitizeEntry(req.query.meal_name);
+      return createMeal(meal, req.query.date, res);
     })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
@@ -18,7 +18,7 @@ const create = (req, res) => {
 
 const index = async (req, res) => {
   try {
-    const user = await findUser(req.body.api_key);
+    const user = await findUser(req.query.api_key);
     const meals = await findUserMeals(user.id);
     const mealsResults = await findAllMealFoods(meals, user.id)
     res.setHeader("Content-Type", "application/json");
@@ -34,7 +34,7 @@ const index = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-    const user = await findUser(req.body.api_key);
+    const user = await findUser(req.query.api_key);
     const meal = await findMeal(req.params.id);
     const mealFood = await findMealFood(req.params.id, user.id);
     const foods = await findFoods(mealFood);

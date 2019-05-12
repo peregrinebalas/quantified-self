@@ -4,7 +4,6 @@ const pry = require('pryjs')
 
 const add = async (req, res) => {
   try {
-    eval(pry.it)
     let food = sanitizeEntry(req.query.food_name)
     food = await Food.create({
       name: food,

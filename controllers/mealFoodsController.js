@@ -6,8 +6,8 @@ const pry = require('pryjs');
 
 const create = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { api_key: req.body.api_key } });
-    const meal = sanitizeEntry(req.body.meal_name);
+    const user = await User.findOne({ where: { api_key: req.query.api_key } });
+    const meal = sanitizeEntry(req.query.meal_name);
     return findMeal(user, meal, req, res);
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -17,7 +17,7 @@ const create = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { api_key: req.body.api_key } });
+    const user = await User.findOne({ where: { api_key: req.query.api_key } });
     const remove = await MealFood.destroy({ where: { id: req.params.id } });
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(JSON.stringify("Record has been deleted."));
@@ -29,11 +29,11 @@ const destroy = async (req, res) => {
 
 const findMeal = async (user, meal, req, res) => {
   try {
-    const food = sanitizeEntry(req.body.food_name);
+    const food = sanitizeEntry(req.query.food_name);
     meal = await Meal.findOrCreate({ where:
       {
         meal_name: meal,
-        date: req.body.date
+        date: req.query.date
       }
     });
     const results = findFood(user, meal, food, res)
