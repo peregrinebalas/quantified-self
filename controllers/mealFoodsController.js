@@ -49,7 +49,12 @@ const findMeal = async (user, mealQuery, req, res) => {
 const findFood = async (user, meal, foodQuery, res) => {
   try {
     food = await Food.findOne({ where: { name: foodQuery } });
-    return createMealFood(user, meal, food, res);
+    if (food) {
+      return createMealFood(user, meal, food, res)
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify({error: "Food not in database."}))
+    }
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify({error: "Food not found."}))
