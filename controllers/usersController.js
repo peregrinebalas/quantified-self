@@ -5,9 +5,9 @@ const pry = require('pryjs')
 const saltRounds = 10;
 
 const register = (req, res) => {
-  const email = req.body.email
-  const password = req.body.password
-  const confirmation = req.body.password_confirmation
+  const email = req.query.email
+  const password = req.query.password
+  const confirmation = req.query.password_confirmation
 
   if (email && password && password === confirmation) {
     bcrypt.hash(password, saltRounds, function(err, hash) {
