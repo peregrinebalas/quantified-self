@@ -105,14 +105,25 @@ function removeDuplicates(meals) {
 
 const mealsByDate = (allMeals) => {
   const dateMeals = {};
-  dateMeals.dates = {};
+  dateMeals.dates = [];
+  let allDates = [];
   allMeals.map( async meal => {
-    if (!dateMeals.dates[meal.date]) {
-      dateMeals.dates[meal.date] = [];
-      dateMeals.dates[meal.date].push(meal);
-    } else if (dateMeals.dates[meal.date]) {
-      dateMeals.dates[meal.date].push(meal);
+    if (!allDates.includes(String(meal.date))) {
+      let mealDate = {};
+      mealDate[meal.date] = [];
+      dateMeals.dates.push(mealDate);
+      dateMeals.dates[dateMeals.dates.length - 1][meal.date].push(meal);
+    } else {
+      for (let i = 0; i < dateMeals.dates.length; i++) {
+        if (Object.keys(dateMeals.dates[i])[0] === String(meal.date)) {
+          dateMeals.dates[i][[Object.keys(dateMeals.dates[i])[0]][0]].push(meal);
+        }
+      }
     }
+    dateMeals.dates.map( async date => {
+      allDates.push(Object.keys(date))
+    });
+    allDates = allDates.flat();
   });
   return dateMeals;
 }
