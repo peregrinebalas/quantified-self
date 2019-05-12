@@ -32,9 +32,9 @@ const register = (req, res) => {
 }
 
 const login = (req, res) => {
-  User.findOne({ where: { email: req.body.email } })
+  User.findOne({ where: { email: req.query.email } })
   .then(user => {
-    const password = req.body.password
+    const password = req.query.password
     bcrypt.compare(password, user.password, function(err, match) {
       if (match) {
         res.setHeader("Content-Type", "application/json");
