@@ -7,8 +7,8 @@ const pry = require('pryjs');
 const create = async (req, res) => {
   try {
     const user = await User.findOne({ where: { api_key: req.query.api_key } });
-    const meal = sanitizeEntry(req.query.meal_name);
-    return findMeal(user, meal, req, res);
+    const mealQuery = sanitizeEntry(req.query.meal_name);
+    return findMeal(user, mealQuery, req, res);
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(401).send(JSON.stringify({error: "Invalid credentials."}));
@@ -27,16 +27,18 @@ const destroy = async (req, res) => {
   }
 }
 
-const findMeal = async (user, meal, req, res) => {
+const findMeal = async (user, mealQuery, req, res) => {
   try {
-    const food = sanitizeEntry(req.query.food_name);
-    meal = await Meal.findOrCreate({ where:
+    const foodQuery = sanitizeEntry(req.query.food_name);
+    const date = new Date(req.query.date)
+    const meal = await Meal.findOrCreate({ where:
       {
-        meal_name: meal,
-        date: req.query.date
+        meal_name: mealQuery,
+        date: date
       }
     });
-    const results = findFood(user, meal, food, res)
+    const results = await findFood(user, meal, foodQuery, res)
+    // eval(pry.it)
     return results;
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -44,12 +46,15 @@ const findMeal = async (user, meal, req, res) => {
   }
 }
 
-const findFood = async (user, meal, food, res) => {
+const findFood = async (user, meal, foodQuery, res) => {
   try {
-    food = await Food.findOne({ where: {
-      name: food
-    }});
-    return createMealFood(user, meal, food, res);
+    food = await Food.findOne({ where: { name: foodQuery } });
+    if (food) {
+      return createMealFood(user, meal, food, res)
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify({error: "Food not in database."}))
+    }
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify({error: "Food not found."}))
