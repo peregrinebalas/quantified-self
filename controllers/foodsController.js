@@ -11,7 +11,7 @@ const add = async (req, res) => {
     });
     const key = process.env.RECIPE_KEY
 
-    const response = await fetch(`http://localhost:3001/api/v1/recipes?ingredient=${food.name}&key=${key}`, {method: 'POST'});
+    const response = await fetch(`https://choosin-foods-recipes.herokuapp.com/api/v1/recipes?ingredient=${food.name}&key=${key}`, {method: 'POST'});
 
     res.setHeader("Content-Type", "application/json");
     res.status(201).send(JSON.stringify(food));
