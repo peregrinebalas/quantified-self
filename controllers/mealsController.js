@@ -175,7 +175,7 @@ const mealsByDate = (meals) => {
   uniqueDates.map(date => {
     let dateContent = []
     meals.map(meal => {
-      if (toString(meal.date) === toString(date)) {
+      if (String(meal.date) === String(date)) {
         dateContent.push(meal)
       }
     })
