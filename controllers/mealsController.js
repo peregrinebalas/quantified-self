@@ -103,32 +103,6 @@ function removeDuplicates(meals) {
   return result
 }
 
-//
-// const mealsByDate = (allMeals) => {
-//   const dateMeals = {};
-//   dateMeals.dates = [];
-//   let allDates = [];
-//   allMeals.map( async meal => {
-//     if (!allDates.includes(String(meal.date))) {
-//       let mealDate = {};
-//       mealDate[meal.date] = [];
-//       dateMeals.dates.push(mealDate);
-//       dateMeals.dates[dateMeals.dates.length - 1][meal.date].push(meal);
-//     } else {
-//       for (let i = 0; i < dateMeals.dates.length; i++) {
-//         if (Object.keys(dateMeals.dates[i])[0] === String(meal.date)) {
-//           dateMeals.dates[i][[Object.keys(dateMeals.dates[i])[0]][0]].push(meal);
-//         }
-//       }
-//     }
-//     dateMeals.dates.map( async date => {
-//       allDates.push(Object.keys(date))
-//     });
-//     allDates = allDates.flat();
-//   });
-//   return dateMeals;
-// }
-
 const findAllMealFoods = (meals, userId) => {
   const allMealFoods = meals.map( async meal => {
     return mealFoodsObject(meal, userId);
