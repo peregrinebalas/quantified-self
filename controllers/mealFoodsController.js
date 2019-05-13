@@ -17,8 +17,7 @@ const create = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { api_key: req.query.api_key } });
-    const remove = await MealFood.destroy({ where: { id: req.params.id } });
+    const remove = await MealFood.destroy({ where: { UserId: req.query.userID, MealId: req.query.mealID, FoodId: req.query.foodID} });
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(JSON.stringify("Record has been deleted."));
   } catch (error) {
