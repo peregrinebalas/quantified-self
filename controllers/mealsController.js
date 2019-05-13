@@ -126,6 +126,7 @@ const mealsByDate = (allMeals) => {
     allDates = allDates.flat();
   });
   return dateMeals;
+  console.log(dateMeals);
 }
 
 const findAllMealFoods = (meals, userId) => {
