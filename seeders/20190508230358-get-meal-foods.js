@@ -82,7 +82,7 @@ module.exports = {
           },
           {
             "FoodId": 3,
-            "MealId": 2,
+            "MealId": 3,
             "UserId": 1,
             createdAt: new Date(),
             updatedAt: new Date()

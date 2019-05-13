@@ -24,7 +24,7 @@ const index = async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.status(201).send(JSON.stringify({
       user_id: `${user.id}`,
-      meals: mealsByDate(mealsResults)
+      meals: mealsByDate(meals)
     }));
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -103,31 +103,31 @@ function removeDuplicates(meals) {
   return result
 }
 
-const mealsByDate = (allMeals) => {
-  const dateMeals = {};
-  dateMeals.dates = [];
-  let allDates = [];
-  allMeals.map( async meal => {
-    if (!allDates.includes(String(meal.date))) {
-      let mealDate = {};
-      mealDate[meal.date] = [];
-      dateMeals.dates.push(mealDate);
-      dateMeals.dates[dateMeals.dates.length - 1][meal.date].push(meal);
-    } else {
-      for (let i = 0; i < dateMeals.dates.length; i++) {
-        if (Object.keys(dateMeals.dates[i])[0] === String(meal.date)) {
-          dateMeals.dates[i][[Object.keys(dateMeals.dates[i])[0]][0]].push(meal);
-        }
-      }
-    }
-    dateMeals.dates.map( async date => {
-      allDates.push(Object.keys(date))
-    });
-    allDates = allDates.flat();
-  });
-  return dateMeals;
-  console.log(dateMeals);
-}
+//
+// const mealsByDate = (allMeals) => {
+//   const dateMeals = {};
+//   dateMeals.dates = [];
+//   let allDates = [];
+//   allMeals.map( async meal => {
+//     if (!allDates.includes(String(meal.date))) {
+//       let mealDate = {};
+//       mealDate[meal.date] = [];
+//       dateMeals.dates.push(mealDate);
+//       dateMeals.dates[dateMeals.dates.length - 1][meal.date].push(meal);
+//     } else {
+//       for (let i = 0; i < dateMeals.dates.length; i++) {
+//         if (Object.keys(dateMeals.dates[i])[0] === String(meal.date)) {
+//           dateMeals.dates[i][[Object.keys(dateMeals.dates[i])[0]][0]].push(meal);
+//         }
+//       }
+//     }
+//     dateMeals.dates.map( async date => {
+//       allDates.push(Object.keys(date))
+//     });
+//     allDates = allDates.flat();
+//   });
+//   return dateMeals;
+// }
 
 const findAllMealFoods = (meals, userId) => {
   const allMealFoods = meals.map( async meal => {
@@ -167,6 +167,58 @@ const findFoods = async (mealFoods) => {
   })
   var results = await Promise.all(foods);
   return results;
+}
+
+const mealsByDate = (meals) => {
+  let dateMeals = []
+  const uniqueDates = getDates(meals)
+  uniqueDates.map(date => {
+    let dateContent = []
+    meals.map(meal => {
+      if (toString(meal.date) === toString(date)) {
+        dateContent.push(meal)
+      }
+    })
+    const dateObject = {}
+    dateObject[date] = dateContent
+    dateMeals.push(dateObject)
+  })
+  return dateMeals
+}
+
+const getDates = (meals) => {
+  let dates = []
+  meals.map(meal => {
+    dates.push(new Date(meal.date))
+  })
+  return sortDates(dates)
+}
+
+const sortDates = (dates) => {
+  const sorted = dates.sort(function(a, b) {
+    var dateA = new Date(a.release), dateB = new Date(b.release);
+    return dateA - dateB;
+  });
+  return getUniqueDates(sorted)
+}
+
+const getUniqueDates = (dates) => {
+  var uniqueDates = [];
+  for (var i = 0; i < dates.length; i++) {
+    if (!isDateInArray(dates[i], uniqueDates)) {
+      uniqueDates.push(dates[i]);
+    }
+  }
+  return uniqueDates
+}
+
+const isDateInArray = (needle, haystack) => {
+  for (var i = 0; i < haystack.length; i++) {
+    if (needle.getTime() === haystack[i].getTime()) {
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = {
