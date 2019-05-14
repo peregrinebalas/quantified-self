@@ -36,7 +36,7 @@ const show = async (req, res) => {
   try {
     const food = await Food.findOne({
       where: {
-        id: req.query.id
+        name: sanitizeEntry(req.query.food_name)
       }
     });
     res.setHeader("Content-Type", "application/json");
