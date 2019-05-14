@@ -36,7 +36,7 @@ const show = async (req, res) => {
   try {
     const food = await Food.findOne({
       where: {
-        id: req.params.id
+        id: req.query.id
       }
     });
     res.setHeader("Content-Type", "application/json");
@@ -81,5 +81,5 @@ const sanitizeEntry = (userEntry) => {
 }
 
 module.exports = {
-  index, show, add, update, destroy
+  show, add, update, destroy, index
 }
