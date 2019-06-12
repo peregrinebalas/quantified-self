@@ -2,7 +2,7 @@
 
 A microservice built as a housing for account info and user login/logout for a project at [Turing School of Software & Design](turing.io). The project, sharing the same name, was an exercise in SOA requiring use of Node and Express. Users are able to log and track meals and the calories associated with those meals.
 
-Along with the code found in this repository, the application's [production](https://quantifiedselfapp.herokuapp.com) utilizes another Express.js service for suggested [recipes](https://github.com/aprildagonese/qs_recipe_service) to users and a React [frontend](https://github.com/aprildagonese/qs_frontend) for UI/UX.
+Along with the code found in this repository, the application's [production](https://quantifiedselfapp.herokuapp.com) utilizes another Express.js service for suggested [recipes](https://github.com/PeregrineReed/qs_recipe_service) to users and a React [frontend](https://github.com/aprildagonese/qs_frontend) for UI/UX.
 
 ### Versions
 * npm - 6.9.0
