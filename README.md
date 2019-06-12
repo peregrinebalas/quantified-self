@@ -1,4 +1,4 @@
-# quantified-self
+# Quantified Self
 
 A microservice built as a housing for account info and user login/logout for a project at [Turing School of Software & Design](turing.io). The project, sharing the same name, was an exercise in SOA requiring use of Node and Express. Users are able to log and track meals and the calories associated with those meals.
 
@@ -19,12 +19,6 @@ Run the following commands in your terminal:
 $ npm install
 $ npx sequelize db:create
 $ npx sequelize db:migrate
-$ touch .env
-```
-In the newly created .env file add a key for the recipes service
-instructions for that service can be found [here](https://github.com/aprildagonese/qs_recipe_service).
-```
-RECIPE_KEY=<YOUR RECIPE KEY>
 ```
 
 ## API Endpoints
